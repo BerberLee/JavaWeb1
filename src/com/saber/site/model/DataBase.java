@@ -36,7 +36,7 @@ public class DataBase {
         preparedStatement.setInt(2, maxEmployeeId);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()){
+        while (resultSet.next()) {
             Employee employee = new Employee();
             employee.setEmployeeId(resultSet.getInt("employee_id"));
             employee.setFirstName(resultSet.getString("first_name"));
@@ -50,6 +50,23 @@ public class DataBase {
 
         return employees;
     }
+
+    public Employee getEmployee(int employeeId) throws SQLException {
+        PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM HR.EMPLOYEES WHERE EMPLOYEE_ID=?");
+        preparedStatement.setInt(1, employeeId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        Employee employee=new Employee();
+        employee.setEmployeeId(resultSet.getInt("employee_id"));
+        employee.setFirstName(resultSet.getString("first_name"));
+        employee.setLastName(resultSet.getString("last_name"));
+        employee.setEmail(resultSet.getString("email"));
+        employee.setSalary(resultSet.getLong("salary"));
+        employee.setPhoneNumber(resultSet.getString("phone_number"));
+        employee.setHireDate(resultSet.getDate("hire_date"));
+        return employee;
+    }
+
     public int countEmployees() throws SQLException {
         PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT COUNT(*) as counter FROM  HR.EMPLOYEES");
         ResultSet resultSet = preparedStatement.executeQuery();

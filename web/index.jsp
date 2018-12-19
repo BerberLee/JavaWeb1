@@ -92,6 +92,7 @@
         <th>Phone Number</th>
         <th>Hire Date</th>
         <th>Salary</th>
+        <th>VIEW</th>
     </tr>
     <c:forEach items="${s:getEmployees(minId+100, maxId+100)}" var="employee">
         <tr>
@@ -102,6 +103,12 @@
             <td><c:out value="${employee.phoneNumber}"/></td>
             <td><fmt:formatDate value="${employee.hireDate}" pattern="yyyy/MM/dd"/></td>
             <td><c:out value="${employee.salary}"/></td>
+            <td>
+                <form action="employeeController" method="post">
+                    <input type="hidden" name="employeeId" value="${employee.employeeId}">
+                    <input type="submit" value="View">
+                </form>
+            </td>
         </tr>
     </c:forEach>
 </table>

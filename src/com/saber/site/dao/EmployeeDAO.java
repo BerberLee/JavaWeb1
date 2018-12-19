@@ -21,4 +21,11 @@ public class EmployeeDAO {
         dataBase.closeConnection();
         return countEmployees;
     }
+    public static Employee getEmployee(int employeeId) throws SQLException {
+        DataBase dataBase = new DataBase();
+        dataBase.openConnection();
+        Employee employee = dataBase.getEmployee(employeeId);
+        dataBase.closeConnection();
+        return employee;
+    }
 }
